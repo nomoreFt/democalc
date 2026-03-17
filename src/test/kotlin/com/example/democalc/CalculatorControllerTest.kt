@@ -102,6 +102,17 @@ class CalculatorControllerTest {
     }
 
     @Test
+    @DisplayName("나머지 연산에서 0으로 나누기 시 400 에러를 반환한다")
+    fun post_calculate_modulo_by_zero_returns_400() {
+        mockMvc.post("/api/calculate") {
+            contentType = MediaType.APPLICATION_JSON
+            content = """{"a": 10, "b": 0, "operator": "%"}"""
+        }.andExpect {
+            status { isBadRequest() }
+        }
+    }
+
+    @Test
     @DisplayName("잘못된 연산자 입력 시 400 에러를 반환한다")
     fun post_calculate_invalid_operator_returns_400() {
         mockMvc.post("/api/calculate") {
