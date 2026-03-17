@@ -9,7 +9,7 @@ class CalculatorHistoryService {
 
     companion object {
         private const val MAX_SIZE = 100
-        private val SUPPORTED_OPERATORS = setOf("+", "-", "*", "/")
+        private val SUPPORTED_OPERATORS = setOf("+", "-", "*", "/", "%")
     }
 
     private val history = ArrayDeque<HistoryItem>()
