@@ -47,4 +47,5 @@ class CalculatorServiceHistoryTest {
         val history = historyService.getHistory()
         assertThat(history).isEmpty()
     }
+
 }
