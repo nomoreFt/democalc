@@ -20,7 +20,7 @@ class CalculatorServiceHistoryTest {
     fun `성공적인 계산 후 히스토리에 저장된다`() {
         calculatorService.calculate(CalculatorRequest(a = 10.0, b = 5.0, operator = "+"))
 
-        val history = historyService.getAll()
+        val history = historyService.getHistory()
         assertThat(history).hasSize(1)
         assertThat(history[0].a).isEqualTo(10.0)
         assertThat(history[0].b).isEqualTo(5.0)
@@ -34,7 +34,7 @@ class CalculatorServiceHistoryTest {
             calculatorService.calculate(CalculatorRequest(a = 10.0, b = 0.0, operator = "/"))
         }.isInstanceOf(ArithmeticException::class.java)
 
-        val history = historyService.getAll()
+        val history = historyService.getHistory()
         assertThat(history).isEmpty()
     }
 
@@ -44,7 +44,7 @@ class CalculatorServiceHistoryTest {
             calculatorService.calculate(CalculatorRequest(a = 10.0, b = 5.0, operator = "@"))
         }.isInstanceOf(IllegalArgumentException::class.java)
 
-        val history = historyService.getAll()
+        val history = historyService.getHistory()
         assertThat(history).isEmpty()
     }
 }

@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
@@ -21,7 +22,7 @@ class CalculatorController(
     }
 
     @GetMapping("/history")
-    fun getHistory(): ResponseEntity<List<HistoryItem>> {
-        return ResponseEntity.ok(historyService.getAll())
+    fun getHistory(@RequestParam(required = false) operator: String?): ResponseEntity<List<HistoryItem>> {
+        return ResponseEntity.ok(historyService.getHistory(operator))
     }
 }

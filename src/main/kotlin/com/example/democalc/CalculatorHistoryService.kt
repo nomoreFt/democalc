@@ -9,6 +9,7 @@ class CalculatorHistoryService {
 
     companion object {
         private const val MAX_SIZE = 100
+        private val SUPPORTED_OPERATORS = setOf("+", "-", "*", "/")
     }
 
     private val history = ArrayDeque<HistoryItem>()
@@ -29,7 +30,12 @@ class CalculatorHistoryService {
         }
     }
 
-    fun getAll(): List<HistoryItem> = history.toList()
+    fun getHistory(operator: String? = null): List<HistoryItem> {
+        if (operator != null && operator !in SUPPORTED_OPERATORS) {
+            throw IllegalArgumentException("지원하지 않는 연산자입니다: $operator")
+        }
+        return if (operator == null) history.toList() else history.filter { it.operator == operator }
+    }
 
     fun clearAll() {
         history.clear()

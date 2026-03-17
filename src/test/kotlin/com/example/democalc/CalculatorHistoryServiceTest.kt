@@ -17,7 +17,7 @@ class CalculatorHistoryServiceTest {
     fun `히스토리 저장 후 조회하면 저장된 항목이 반환된다`() {
         historyService.save(a = 10.0, b = 5.0, operator = "+", result = 15.0)
 
-        val history = historyService.getAll()
+        val history = historyService.getHistory()
 
         assertThat(history).hasSize(1)
         assertThat(history[0].a).isEqualTo(10.0)
@@ -32,7 +32,7 @@ class CalculatorHistoryServiceTest {
         historyService.save(a = 2.0, b = 2.0, operator = "*", result = 4.0)
         historyService.save(a = 3.0, b = 3.0, operator = "-", result = 0.0)
 
-        val history = historyService.getAll()
+        val history = historyService.getHistory()
 
         assertThat(history[0].operator).isEqualTo("-")
         assertThat(history[1].operator).isEqualTo("*")
@@ -44,7 +44,7 @@ class CalculatorHistoryServiceTest {
         historyService.save(a = 10.0, b = 5.0, operator = "+", result = 15.0)
         historyService.clearAll()
 
-        val history = historyService.getAll()
+        val history = historyService.getHistory()
 
         assertThat(history).isEmpty()
     }
@@ -54,7 +54,7 @@ class CalculatorHistoryServiceTest {
         historyService.save(a = 1.0, b = 1.0, operator = "+", result = 2.0)
         historyService.save(a = 2.0, b = 2.0, operator = "+", result = 4.0)
 
-        val history = historyService.getAll()
+        val history = historyService.getHistory()
 
         // 최신순이므로 첫 번째가 id=2, 두 번째가 id=1
         assertThat(history[0].id).isEqualTo(2L)
@@ -67,7 +67,7 @@ class CalculatorHistoryServiceTest {
             historyService.save(a = i.toDouble(), b = 1.0, operator = "+", result = (i + 1).toDouble())
         }
 
-        val history = historyService.getAll()
+        val history = historyService.getHistory()
 
         assertThat(history).hasSize(100)
         // 가장 최신 항목(a=100.0)이 첫 번째여야 한다
